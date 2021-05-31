@@ -1,0 +1,60 @@
+package graph.to.db.entity;
+
+public class PlotData {
+    private final Double x;
+    private final Double y;
+    private final Double z;
+    private final Double h;
+    private final String location;
+    private final String name;
+
+    public PlotData(Double x,Double y,Double z,Double h, String location, String name) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.h = h;
+        this.location = location;
+        this.name = name;
+    }
+
+    public Double getY() {
+        return y;
+    }
+
+    public Double getZ() {
+        return z;
+    }
+
+    public Double getH() {
+        return h;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Double getX() {
+        return x;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlotData)) return false;
+        PlotData plotData = (PlotData) o;
+        return x.equals(plotData.x) && location.equals(plotData.location) && name.equals(plotData.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 12;
+        result += result * x.hashCode();
+        result += result * name.hashCode();
+        result += result * location.hashCode();
+        return result;
+    }
+}
