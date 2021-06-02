@@ -16,6 +16,9 @@ public class DrawPlot  implements Command {
     private final String Y_PARAM = "y";
     private final String Z_PARAM = "z";
     private final String H_PARAM = "h";
+    private final String T_PARAM = "t";
+    private final String MU_PARAM = "h";
+    private final String Z_O_PARAM = "z_0";
     private final String ERROR_PARAM = "error";
 
     @Override
@@ -24,10 +27,13 @@ public class DrawPlot  implements Command {
         double y = Double.valueOf( req.getParameter(Y_PARAM));
         double z = Double.valueOf( req.getParameter(Z_PARAM));
         double h = Double.valueOf( req.getParameter(H_PARAM));
+        double t = Double.valueOf( req.getParameter(T_PARAM));
+        double mu = Double.valueOf( req.getParameter(MU_PARAM));
+        double z_0 = Double.valueOf( req.getParameter(Z_O_PARAM));
         String name =  req.getParameter(NAME_PARAM);
         String responseFile = MappingJSP.ERROR_PAGE;
         try {
-            if (FileService.getInstance().drawAnPlot(name, x,y,z,h)){
+            if (FileService.getInstance().drawAnPlot(name, x,y,z,h, t , mu, z_0)){
                 System.out.println("ANSWER IS GOOD");
                 req.setAttribute(NAME_PARAM, name);
                 responseFile = MappingJSP.SUCCESS;

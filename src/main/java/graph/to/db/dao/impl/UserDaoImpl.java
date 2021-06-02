@@ -9,12 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     private static UserDaoImpl userDao;
     private static final String SELECT_DATA_BY_NAME = "SELECT plot_id, plot_location, plot_name, " +
             "param FROM plot WHERE plot_name=?";
     private static final String INPUT_DATA = "INSERT INTO plot(plot_location,plot_name,param) VALUES (?,?,?)";
+    private static final String SELECT_NAMES = "SELECT plot_name FROM plot";
 
     public static UserDaoImpl getInstance() {
         if (userDao == null) {
@@ -53,8 +56,7 @@ public class UserDaoImpl implements UserDao {
                 String plotLocation = resultSet.getString(2) + "\\1.png";
                 String plotName = resultSet.getString(3);
                 double param = resultSet.getDouble(4);
-
-                data = new PlotData(param,0.0,0.0,0.0,plotLocation, plotName);
+                data = new PlotData(param,0.0,0.0,0.0,0.0,0.0,0.0,plotLocation, plotName);
             }
         }catch (SQLException e){
             throw new DaoException("Error while adding data",e);
@@ -76,5 +78,23 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Error while adding data",e);
         }
         return isDataAdded;
+    }
+
+    @Override
+    public List<String> getAllPlotsName() throws DaoException {
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        ArrayList<String> data = new ArrayList();
+        ResultSet resultSet = null;
+        try(Connection connection = instance.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_NAMES)){
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                String name = resultSet.getString(1);
+                data.add(name);
+            }
+        }catch (SQLException e){
+            throw new DaoException("Error while adding data",e);
+        }
+        return data;
     }
 }

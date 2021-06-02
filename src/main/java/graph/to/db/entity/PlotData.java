@@ -7,14 +7,31 @@ public class PlotData {
     private final Double h;
     private final String location;
     private final String name;
-
-    public PlotData(Double x,Double y,Double z,Double h, String location, String name) {
+    private final Double t;
+    private final Double mu;
+    private final Double z_0;
+    public PlotData(Double x,Double y,Double z,Double h,Double t, Double mu, Double z_0, String location, String name) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.h = h;
+        this.t = t;
+        this.mu = mu;
+        this.z_0 = z_0;
         this.location = location;
         this.name = name;
+    }
+
+    public Double getT() {
+        return t;
+    }
+
+    public Double getMu() {
+        return mu;
+    }
+
+    public Double getZ_0() {
+        return z_0;
     }
 
     public Double getY() {

@@ -22,10 +22,11 @@ public class Drawer {
         StringBuilder command = new StringBuilder();
         command.append("python ").append(scriptLocation).append(" ")
                 .append(data.getX()).append(" ").append(data.getY()).append(" ").append(data.getZ()).append(" ")
-                .append(data.getH()).append(" ").append(directoryName); //составления запроса
+                .append(data.getH()).append(" ").append(data.getT()).append(" ").append(data.getMu()).append(" ")
+                .append(data.getZ_0()).append(" ").append(directoryName); //составления запроса
         try {
             Process p = Runtime.getRuntime().exec(command.toString());
-            return true;
+            return p.isAlive();
         } catch (IOException e) {
             return false;
         }
